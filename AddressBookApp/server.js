@@ -21,3 +21,17 @@ app.use(bodyParser.json());
 
 // Set up method override
 app.use(methodOverride("_method"));
+
+const mockUserData = [{ name: "Anagh" }, { name: "Chaubey" }];
+
+app.get("/", function (req, res) {
+  res.json({
+    success: true,
+    message: "successfully got users. Nice!",
+    users: mockUserData,
+  });
+});
+
+app.listen(8000, () => {
+  console.log("Server is Running");
+});
