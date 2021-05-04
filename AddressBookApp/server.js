@@ -1,37 +1,57 @@
 const express = require("express");
 const app = express();
 
-const bodyParser = require("body-parser");
-const methodOverride = require("method-override");
+const path = require("path");
+require("dotenv").config();
+let url = require("url");
 
-const url = require("url");
+let mongoose = require("mongoose");
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/AddressBook", { useNewUrlParser: true });
-
-// Use EJS for templating
-app.set("view engine", "ejs");
-
-// Hold JS/CSS in public folder
-app.use(express.static("public"));
-
-// Set up body parser
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(bodyParser.json());
-
-// Set up method override
-app.use(methodOverride("_method"));
-
-const mockUserData = [{ name: "Anagh" }, { name: "Chaubey" }];
-
-app.get("/", function (req, res) {
-  res.json({
-    success: true,
-    message: "successfully got users. Nice!",
-    users: mockUserData,
+// "mongodb://localhost/Adressbook";
+mongoose
+  .connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log(`connection to database established`);
+  })
+  .catch((err) => {
+    console.log(`db error ${err.message}`);
+    process.exit(-1);
   });
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
+app.get("/", (req, res) => {
+  res.render("error");
 });
 
-app.listen(8000, () => {
-  console.log("Server is Running");
+app.get("/index", (req, res) => {
+  res.render("index");
+});
+
+app.get("/group/edit", (req, res) => {
+  res.render("group/edit");
+});
+
+app.get("/group/new", (req, res) => {
+  res.render("group/new");
+});
+
+app.get("/person/edit", (req, res) => {
+  res.render("person/edit");
+});
+
+app.get("/person/ne", (req, res) => {
+  res.render("person/new");
+});
+
+app.listen(1337, () => {
+  console.log("Server Runnin on Port 1337 ");
 });

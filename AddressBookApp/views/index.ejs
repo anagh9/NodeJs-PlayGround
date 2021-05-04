@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('partials/header'); -%>
+  <body>
+<nav class="nav">
+	<div class="nav__header">
+		<h1 class="logo">Address Book</h1>
+		<button class="nav__toggle"><i class="fas fa-angle-down filter__down"></i></button>
+	</div>
+
+	<div class="nav__content">
+		<div class="nav__group">
+			<h2 class="nav__title nav__title--icon">Search</h2>
+			<div class="info">
+				<i class="fas fa-info-circle"></i>
+				<div class="info__tooltip">
+					<p>Search within name's, address', postcodes, or birthday's.</p>
+				</div>
+			</div>
+			<div class="filter filter--search">
+				<input type="text" class="filter__search" placeholder="Enter Search Query..." name="query">
+			</div>
+		</div>
+	
+		<div class="nav__group">
+			<h2 class="nav__title">Filters</h2>
+			<form action="/" method="GET">
+				<div class="filter">
+					<div class="filter__header">
+						<h3 class="filter__title">Columns</h3>
+						<i class="fas fa-angle-down filter__down"></i>
+					</div>
+					<div class="filter__options">
+						<% for (key in categories) { %>
+						<label for="<%=key%>" class="option">
+							<%=categories[key]%>
+							<% if(typeof columns != "undefined" && columns.includes(key)) { %>
+							<input type="checkbox" id="<%=key%>" name="<%=key%>" value="<%=key%>" checked>
+							<% } else { %>
+							<input type="checkbox" id="<%=key%>" name="<%=key%>" value="<%=key%>">
+							<% } %>
+							<span class="checkbox"><i class="fas fa-check checkbox__tick"></i></span>
+						</label>
+						<% } %>
+					</div>
+				</div>
+				<div class="filter">
+					<div class="filter__header">
+						<h3 class="filter__title">Groups</h3>
+						<i class="fas fa-angle-down filter__down"></i>
+					</div>
+	
+					<div class="filter__options">
+						<div class="filter__groups">
+							<% groups.forEach(group => { %>
+							<label class="option" for="<%=group._id%>">
+								<%=group.name%>
+								<% if(typeof groupFilter != "undefined" && groupFilter.includes(group._id.toString())) { %>
+								<input id="<%=group._id%>" type="checkbox" value="<%=group._id%>" name="filterGroups" checked>
+								<% } else { %>
+								<input id="<%=group._id%>" type="checkbox" value="<%=group._id%>" name="filterGroups">
+								<% } %>
+								<span class="checkbox"><i class="fas fa-check checkbox__tick"></i></span>
+							</label>
+							<% }) %>
+						</div>
+	
+						<label for="all" class="option">
+							<% if(typeof groupCondition != "undefined" && groupCondition == "all"){ %>
+							<input type="radio" name="groupFilter" value="all" id="all" checked>
+							<% } else { %>
+							<% if(typeof groupCondition == "undefined"){ %>
+							<input type="radio" name="groupFilter" value="all" id="all" checked>
+							<% } else { %>
+							<input type="radio" name="groupFilter" value="all" id="all">
+							<% } %>
+							<% } %>
+							Contains All
+							<span class="radio"></span>
+						</label>
+						<label for="some" class="option">
+							<% if(typeof groupCondition != "undefined" && groupCondition == "some"){ %>
+							<input type="radio" name="groupFilter" value="some" id="some" checked>
+							<% } else { %>
+							<input type="radio" name="groupFilter" value="some" id="some">
+							<% } %>
+							Contains Some
+							<span class="radio"></span>
+						</label>
+					</div>
+				</div>
+				<div class="filter__btns">
+					<button class="btn filter__btn" type="submit">Filter</button>
+					<a href="/" class="btn btn--secondary filter__btn">Reset Filters</a>
+				</div>
+			</form>
+		</div>
+	</div>
+</nav>
+
+<main>
+
+
+	<section class="card">
+		<div class="card__header groups__header">
+			<h2>Groups</h2>
+			<a class="btn btn--light" href="/group/new">Add Group</a>
+		</div>
+		<div class="card__content groups groups--row">
+			<% groups.forEach(group => { %>
+			<div class="group" style="border: 2px solid '<%=group.colour;%>'" data-group="<%=group._id%>">
+				<p class="group__name">
+					<%=group.name%>
+				</p>
+
+				<div class="group__options">
+					<a href="/group/<%=group._id%>/edit" class="group__option"><i class="fa fa-pencil-alt"></i></a>
+					<button class="btn btn--link group__option delete-group"><i class="fa fa-trash"></i></a>
+				</div>
+			</div>
+			<% }) %>
+			
+		</div>
+	</section>
+
+	<section class="people card">
+		<div class="card__header people__header">
+			<h2>People</h2>
+			<a class="btn btn--light" href="/people/new">Add Person</a>
+		</div>
+		<div class="card__content people__content">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>Name
+							<button class="sort" data-category="name" data-order="ASC">
+								<i class="fa fa-sort-up sort__icon"></i>
+							</button>
+						</th>
+
+						<% if(typeof columns != "undefined") { %>
+						<% columns.forEach(key => { %>
+						<th class="people__other">
+							<%= categories[key] %>
+							<button class="sort" data-category="<%=key%>" data-order="ASC">
+								<i class="fa fa-sort-up sort__icon"></i>
+							</button>
+						</th>
+						<% }); %>
+						<% } %>
+
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<% people.forEach(person => { %>
+					<tr class="person">
+						<td data-category="name">
+							<% if (columns.length) { %>
+								<button class="person__down"><i class="fas fa-angle-down"></i></button>
+							<% } %>
+							<%= person.firstName %>
+							<%= person.lastName%>
+
+							<% if (columns.length) { %>
+							<div class="person__dropdown">
+								<% columns.forEach(key => {  %>
+								<div class="person__attr">
+									<% if(key == "groups"){ %>
+										<p class="person__category"><%=categories[key]%></p>
+										<div class="groups">
+											<% person.groups.forEach(group => { %>
+											<span class="group" style="border: 2px solid '<%=group.colour;%>' ">
+												<%=group.name%>
+											</span>
+											<% }) %>
+
+											<% if(!person.groups.length) { %>
+												<p>No Groups</p>
+											<% }%> 
+										</div>
+									<% } else { %>
+										<p class="person__category"><%=categories[key]%></p>	
+										<p><%=person[key] %></p>
+									<% } %>
+								</div>
+
+								<% }); %>
+							</div>
+							<% } %>
+						</td>
+						<% if (typeof columns != "undefined") { %>
+						<% columns.forEach(key => {  %>
+						<% if(key == "groups"){ %>
+						<td class="people__other" data-category="groups">
+							<div class="groups">
+								<% person.groups.forEach(group => { %>
+								<span class="group" style="border: 2px solid " <%=group.colour;%>>
+									<%=group.name%></span>
+								<% }) %>
+							</div>
+						</td>
+						<% } else { %>
+						<td class="people__other" data-category="<%=key%>">
+							<%=person[key] %>
+						</td>
+						<% } %>
+
+						<% }); %>
+						<% } %>
+
+						<td class="person__actions">
+							<a href="/people/<%= person._id%>" class="person__action btn btn--link">View</a>
+							<a href="/people/<%= person._id %>/edit" class="person__action btn btn--link">Edit</a>
+							<form action="/people/<%=person._id%>?_method=DELETE" method="POST" class="inline person__action">
+								<button class="btn btn--link" class="person__action">Delete</button>
+							</form>
+						</td>
+					</tr>
+					<% }) %>
+				</tbody>
+			</table>
+
+		</div>
+	</section>
+</main>
+
+<div class="dialog">
+	<div class="dialog__header">
+		<h1>Delete Group</h1>
+		<button class="dialog__cross dialog__close">
+			<i class="fa fa-times"></i>
+		</button>
+	</div>
+
+	<div class="dialog__content">
+		<p>Do you wish to delete all persons associated to this group?</p>
+	</div>
+
+	<div class="dialog__options">
+		<button class="btn btn--link dialog__btn dialog__close">Cancel</button>
+		<form method="POST" class="form-inline keep-people">
+			<button class="btn btn--secondary dialog__btn">
+				No
+			</button>
+		</form>
+		<form method="POST" class="form-inline delete-people">
+			<button class="btn btn-danger dialog__btn">
+				Yes
+			</button>
+		</form>
+	</div>
+</div>
+
+<div class="overlay"></div>
+
+<script src="sort.js"></script>
+
+  <%- include('partials/footer'); -%>
+  </body>
+</html>

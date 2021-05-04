@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header'); -%>
+
+<a href="/" class="btn btn--primary home-btn">Go Home</a>
+
+<div class="container card">
+  <div class="card__header">
+    <h1>Add a new Person</h1>
+  </div>
+
+  <form
+    action="/people"
+    method="post"
+    class="card__content"
+    enctype="multipart/form-data"
+  >
+    <div class="form__group">
+      <label for="firstName">First Name</label>
+      <input type="text" class="form-control form__text" name="firstName" />
+    </div>
+
+    <div class="form__group">
+      <label for="lastName">Last Name</label>
+      <input type="text" class="form-control form__text" name="lastName" />
+    </div>
+
+    <div class="form__group">
+      <label for="birthday">Birthday</label>
+      <input type="date" class="form-control" name="birthday" />
+    </div>
+
+    <div class="form__group">
+      <label for="postcode">Postcode</label>
+      <input type="text" class="form-control form__text" name="postcode" />
+    </div>
+
+    <div class="form__group">
+      <label for="address">Address</label>
+      <textarea
+        class="form-control"
+        name="address"
+        id=""
+        cols="30"
+        rows="10"
+      ></textarea>
+    </div>
+
+    <div class="form__group">
+      <label for="mobile">Mobile</label>
+      <input type="text" class="form-control form__text" name="mobile" />
+    </div>
+
+    <div class="form__group">
+      <label for="homePhone">Home Phone</label>
+      <input type="text" class="form-control form__text" name="homePhone" />
+    </div>
+
+    <div class="form__group">
+      <label for="picture">Picture</label>
+      <input type="file" class="form-control" name="picture" />
+    </div>
+
+    <h2 class="form__sub">Groups</h2>
+
+    <div class="form__groups">
+    <h1>fgdfsd</h1>
+    </div>
+
+    <button class="btn btn-primary submit">Add</button>
+  </form>
+</div>
+
+    <%- include('../partials/footer'); -%>
+  </body>
+</html>

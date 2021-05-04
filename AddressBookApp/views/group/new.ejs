@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header'); -%>
+<a href="/" class="btn btn--primary home-btn">Go Home</a>
+
+<div class="container card">
+  <div class="card__header">
+    <h1>Add new Group</h1>
+  </div>
+
+  <form action="/group" method="post" class="card__content">
+    <div class="form__group">
+      <label for="name">Group Name</label>
+      <input type="text" name="name" class="form-control form__text" />
+    </div>
+
+    <div class="form__group">
+      <label for="colour">Colour</label>
+      <input type="color" name="colour" class="form-control" />
+    </div>
+
+    <button class="btn btn-primary">Submit</button>
+  </form>
+</div>
+    <%- include('../partials/footer'); -%>
+  </body>
+</html>

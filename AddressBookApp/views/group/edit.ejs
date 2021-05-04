@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header'); -%>
+  <body>
+    <a href="/" class="btn btn--primary home-btn">Go Home</a>
+
+    <div class="container card">
+      <div class="card__header">
+        <h1>Edit Group</h1>
+      </div>
+
+      <form
+        action="/group/<%=group._id%>?_method=PUT"
+        method="post"
+        class="card__content"
+      >
+        <div class="form__group">
+          <label for="name">Group Name</label>
+          <input
+            type="text"
+            name="name"
+            class="form-control form__text"
+            value="<%=group.name%>"
+          />
+        </div>
+
+        <div class="form__group">
+          <label for="colour">Colour</label>
+          <input
+            type="color"
+            name="colour"
+            class="form-control"
+            value="<%=group.colour%>"
+          />
+        </div>
+
+        <button class="btn btn-primary">Edit</button>
+      </form>
+    </div>
+
+    <script type="text/javascript" src="deleteGroupModal.js"></script>
+
+    <%- include('partials/footer'); -%>
+  </body>
+</html>

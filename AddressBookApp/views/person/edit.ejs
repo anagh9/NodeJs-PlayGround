@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include('../partials/header'); -%>
+
+<a href="/" class="btn btn--primary home-btn">Go Home</a>
+
+<div class="container card">
+  <div class="card__header">
+    <h1>Hello</h1>
+  </div>
+
+  <form
+
+    method="POST"
+    class="card__content"
+  >
+    <div class="form__group">
+      <label for="firstName">First Name</label>
+      <input
+        type="text"
+        class="form-control form__text"
+        name="firstName"
+  
+      />
+    </div>
+
+    <div class="form__group">
+      <label for="lastName">Last Name</label>
+      <input
+        type="text"
+        class="form-control form__text"
+        name="lastName"
+
+      />
+    </div>
+
+    <div class="form__group">
+      <label for="birthday">Birthday</label>
+      <input
+        type="date"
+        class="form-control"
+        name="birthday"
+
+      />
+    </div>
+
+    <div class="form__group">
+      <label for="postcode">Postcode</label>
+      <input
+        type="text"
+        class="form-control form__text"
+        name="postcode"
+
+      />
+    </div>
+
+    <div class="form__group">
+      <label for="address">Address</label>
+      <textarea class="form-control" name="address" id="" cols="30" rows="10">
+</textarea
+      >
+    </div>
+
+    <div class="form__group">
+      <label for="mobile">Mobile</label>
+      <input
+        type="text"
+        class="form-control form__text"
+        name="mobile"
+       
+      />
+    </div>
+
+    <div class="form__group">
+      <label for="homePhone">Home Phone</label>
+      <input
+        type="text"
+        class="form-control form__text"
+        name="homePhone"
+      
+      />
+    </div>
+
+
+</div>
+    <%- include('../partials/footer'); -%>
+  </body>
+</html>

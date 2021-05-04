@@ -1,0 +1,40 @@
+<% include ../partials/header %> <% let googleURL =
+`https://www.google.com/maps/embed/v1/place?key=${apiKey}&q=${person.address}`
+%>
+
+<a href="/" class="btn btn--primary home-btn">Go Home</a>
+
+<div class="container card">
+  <div class="card__header">
+    <h1><%= person.firstName %> <%= person.lastName %></h1>
+  </div>
+
+  <div class="card__content">
+    <% if(person.address) { %>
+    <p class="card__label">Address</p>
+    <p class="card__data"><%= person.address %></p>
+    <% } %> <% if(person.postcode) { %>
+    <p class="card__label">Postcode</p>
+    <p class="card__data"><%= person.postcode %></p>
+    <% } %> <% if(person.mobile) { %>
+    <p class="card__label">Mobile</p>
+    <p class="card__data"><%= person.mobile %></p>
+    <% } %> <% if(person.homePhone) { %>
+    <p class="card__label">Home Number</p>
+    <p class="card__data"><%= person.homePhone %></p>
+    <% } %> <% if(person.address) { %>
+    <div class="card__map">
+      <iframe
+        width="100%"
+        height="450"
+        frameborder="0"
+        style="border: 0"
+        src="<%= googleURL %>"
+        allowfullscreen
+      ></iframe>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<% include ../partials/footer %>
