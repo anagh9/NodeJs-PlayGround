@@ -64,7 +64,19 @@
     <h2 class="form__sub">Groups</h2>
 
     <div class="form__groups">
-    <h1>fgdfsd</h1>
+      <% groups.forEach(group => { %>
+      <label for="group-<%=group._id%>" class="option">
+        <%=group.name%>
+        <input
+          type="checkbox"
+          id="group-<%=group._id%>"
+          name="group-<%=group._id%>"
+        />
+        <span class="checkbox"
+          ><i class="fas fa-check checkbox__tick"></i
+        ></span>
+      </label>
+      <% }); %>
     </div>
 
     <button class="btn btn-primary submit">Add</button>

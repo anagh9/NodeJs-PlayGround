@@ -32,26 +32,6 @@ app.get("/", (req, res) => {
   res.render("error");
 });
 
-app.get("/index", (req, res) => {
-  res.render("index");
-});
-
-app.get("/group/edit", (req, res) => {
-  res.render("group/edit");
-});
-
-app.get("/group/new", (req, res) => {
-  res.render("group/new");
-});
-
-app.get("/person/edit", (req, res) => {
-  res.render("person/edit");
-});
-
-app.get("/person/ne", (req, res) => {
-  res.render("person/new");
-});
-
 app.listen(1337, () => {
   console.log("Server Runnin on Port 1337 ");
 });
