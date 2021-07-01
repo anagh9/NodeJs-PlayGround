@@ -1,0 +1,25 @@
+extends ../layout/layout 
+
+block layout-content 
+    div
+        h1 Hello THis is About Page 
+        form(action="#", method="post")
+            label(for="text") Name
+            input(type="text") 
+            button(type="submit" class="NavButton") Submit 
+        h2 Bye It's Final
+    
+    - const list = ["Uno", "Dos", "Tres","Cuatro","Cinco", "Seis"]
+    - const iyer = ["bejati","babita","masti"]
+    each item in list
+        li= item
+    each item in iyer
+        h3= item
+    
+    
+    each item in Array(5)
+        h2= Lala
+    - let arr = ["hql","wql","ool","woowl"]
+    - for (var i=0; i<3; i++)
+        h2= arr[i]
+
